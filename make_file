@@ -1,0 +1,38 @@
+# Makefile for common dev tasks
+PYTHON := $(shell which python3 || echo python)
+PIP := $(PYTHON) -m pip
+REQ := voice_agent/requirements.txt
+DEV_REQ := voice_agent/dev-requirements.txt
+SRC := voice_agent/src
+
+.PHONY: all install dev test lint format fmt-check run make-executable clean
+
+all: install dev fmt-check lint test
+
+install:
+	$(PIP) install -r $(REQ)
+
+dev:
+	$(PIP) install -r $(DEV_REQ)
+
+test:
+	pytest -q
+
+lint:
+	flake8 $(SRC)
+
+format:
+	black $(SRC)
+
+fmt-check:
+	black --check $(SRC)
+
+make-executable:
+	chmod +x voice_agent/clients/retry_client.py
+
+run:
+	# Run the FastAPI server (from repo root)
+	$(PYTHON) -m uvicorn src.server:app --app-dir voice_agent/src --reload
+
+clean:
+	rm -rf tmp
