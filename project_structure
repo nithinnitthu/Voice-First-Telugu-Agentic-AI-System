@@ -1,0 +1,18 @@
+gov-scheme-agent/
+  ├── app.py                 # main orchestrator (FastAPI/Flask or CLI)
+  ├── agent/
+  │   ├── orchestrator.py    # Planner–Executor–Evaluator loop
+  │   ├── prompts.py         # system + tool prompts (Marathi)
+  │   ├── tools.py           # tool function definitions
+  │   ├── state.py           # dialog state & memory helpers
+  ├── stt/
+  │   └── stt_whisper.py     # STT wrapper
+  ├── tts/
+  │   └── tts_google.py      # TTS wrapper
+  ├── data/
+  │   ├── schemes.json       # scheme definitions & rules
+  │   └── embeddings.faiss   # vector index
+  ├── backend/
+  │   └── application_api.py # mock API
+  ├── requirements.txt
+  └── README.md
